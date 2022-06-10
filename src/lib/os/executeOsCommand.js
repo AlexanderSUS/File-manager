@@ -4,15 +4,15 @@ import { cpus, EOL, homedir, userInfo, arch } from 'os';
 import { showCurrentDir } from '../notifications/showCurrentDir.js';
 
 export const executeOsCommand = (argument) => {
-  const CORE = 'core: ';
-  const SPEED = 'speed ';
+  const CORE = 'Core';
+  const SPEED = 'speed';
 
   switch(argument) {
     case EOL_ARG:
       console.log(JSON.stringify(EOL));
       break;
     case CPUS_ARG:
-      cpus().forEach(c => console.log(CORE, c.model, SPEED, c.speed ));
+      cpus().forEach(c => console.log(`${CORE}: ${c.model}, ${SPEED}: ${c.speed}`));
       break;
     case HOMEDIR_ARG:
       console.log(homedir());
