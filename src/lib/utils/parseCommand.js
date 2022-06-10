@@ -1,10 +1,11 @@
-import { CD_COMMAND, EXIT_COMMAND, LS_COMMAND, SPACE, UP_COMMAND, OS_COMMAND } from '../const.js';
+import { CD_COMMAND, EXIT_COMMAND, LS_COMMAND, SPACE, UP_COMMAND, OS_COMMAND, CAT_COMMAND } from '../const.js';
 import { changeDirectory } from '../nwd/changeDirectory.js';
 import { goUp } from '../nwd/goUp.js';
 import { readDir } from '../nwd/readDir.js';
 import { cwd } from 'process';
 import { showInvalidInputMessage } from '../notifications/showInvalidInputMessage.js';
 import { executeOsCommand } from '../os/executeOsCommand.js';
+import { cat } from '../fs/cat.js';
 
 export function parseCommand(line) {
   const lineArgs = line.split(SPACE);
@@ -29,6 +30,10 @@ export function parseCommand(line) {
     case OS_COMMAND: 
       const [argument] = args;
       executeOsCommand(argument) 
+      break;
+    case CAT_COMMAND:
+      const [sourceFile] = args;
+      cat(sourceFile);
       break;
     default:
       showInvalidInputMessage();
