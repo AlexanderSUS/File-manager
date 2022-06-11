@@ -1,7 +1,6 @@
-import { EOL_ARG, CPUS_ARG, HOMEDIR_ARG, USERNAME_ARG, ARCH_ARG } from '../const.js';
-import { showInvalidInputMessage } from '../notifications/showInvalidInputMessage.js'
+import { EOL_ARG, CPUS_ARG, HOMEDIR_ARG, USERNAME_ARG, ARCH_ARG, 
+  OPERATION_FAILED_MESSAGE, OK } from '../const.js';
 import { cpus, EOL, homedir, userInfo, arch } from 'os';
-import { showCurrentDir } from '../notifications/showCurrentDir.js';
 
 export const executeOsCommand = (argument) => {
   const CORE = 'Core';
@@ -24,9 +23,8 @@ export const executeOsCommand = (argument) => {
       console.log(arch());
       break;
     default:
-      showInvalidInputMessage();
+      process.emit('message', OPERATION_FAILED_MESSAGE);
       return;
   }
-
-  showCurrentDir();
+  process.emit('message', OK);
 }

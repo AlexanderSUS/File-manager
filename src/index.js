@@ -5,6 +5,8 @@ import { showCurrentDir } from './lib/notifications/showCurrentDir.js';
 import { greetUser } from './lib/notifications/greetUser.js';
 import { goToHomeDirectory } from './lib/nwd/goToHomeDirectory.js';
 import { sayGoodbye } from './lib/notifications/sayGoodbye.js';
+import { showErrorMessage } from './lib/notifications/showErrorMessage.js';
+import { OK } from './lib/const.js';
 
 const args = process.argv.slice(2);
 const [userNameProp, userNameValue] = args.pop().split('=');
@@ -21,6 +23,14 @@ const rl = readline.createInterface({
 
 rl.on('line', (line) => {
   parseCommand(line);
+});
+
+process.on('message', (msg) => {
+  if (msg !== OK) {
+    showErrorMessage(msg)
+  }
+  
+  showCurrentDir();
 });
 
 process.on('exit', () => {

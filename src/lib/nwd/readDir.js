@@ -1,17 +1,15 @@
 import fs from 'fs';
-import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
+import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 
 export const readDir = async (pathToDir) =>  {
   fs.readdir(pathToDir, (err, files) => {
     if (err) {
-      showOperationFailedMessage();
-      return;
+      process.emit('message', OPERATION_FAILED_MESSAGE);
     }
 
     files.forEach((file) => {
       console.log(file);
     }) 
-    showCurrentDir();
+    process.emit('message', OK);
   });
 }

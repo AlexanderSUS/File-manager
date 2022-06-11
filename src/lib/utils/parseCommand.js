@@ -1,12 +1,11 @@
 import { CD_COMMAND, EXIT_COMMAND, LS_COMMAND, SPACE,
 UP_COMMAND, OS_COMMAND, CAT_COMMAND, ADD_COMMAND,
 RN_COMMAND, CP_COMMAND, MV_COMMAND, RM_COMMAND, HASH_COMMAND,
-COMPRESS_COMMAND, DECOMPRESS_COMMAND } from '../const.js';
+COMPRESS_COMMAND, DECOMPRESS_COMMAND, INVALID_INPUT_MESSAGE } from '../const.js';
 import { changeDirectory } from '../nwd/changeDirectory.js';
 import { goUp } from '../nwd/goUp.js';
 import { readDir } from '../nwd/readDir.js';
 import { cwd } from 'process';
-import { showInvalidInputMessage } from '../notifications/showInvalidInputMessage.js';
 import { executeOsCommand } from '../os/executeOsCommand.js';
 import { cat } from '../fs/cat.js';
 import { createFile } from '../fs/createFile.js';
@@ -16,7 +15,7 @@ import { moveFile } from '../fs/moveFile.js';
 import { deleteFile } from '../fs/deleteFile.js';
 import { calcHash } from '../hash/calcHash.js';
 import { compress } from '../zip/compress.js';
-import { decompress } from '../hash/decompress.js';
+import { decompress } from '../zip/decompress.js';
 
 export function parseCommand(line) {
   const lineArgs = line.split(SPACE);
@@ -68,6 +67,6 @@ export function parseCommand(line) {
       decompress(args[0], args[1]);
       break;
     default:
-      showInvalidInputMessage();
+      process.emit('message', INVALID_INPUT_MESSAGE);
   }
 }

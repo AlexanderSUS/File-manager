@@ -1,26 +1,21 @@
 import { existsSync, unlink } from 'fs';
-import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
+import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 
 export function deleteFile(pathToFile) {
-  const resolvedPathToFile = getAbsolutePath(pathToFile);
+  const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');
 
-  if (existsSync(resolvedPathToFile)) {
-    unlink(resolvedPathToFile, (err) => {
-      if (err) {
-        showOperationFailedMessage();
-        showCurrentDir();
+  if (!pathToFile || !existsSync(resolvedPathToFile)) {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
 
-        return;
-      }
-    });
-
-    showCurrentDir();
-    
     return;
   }
 
-  showOperationFailedMessage();
-  showCurrentDir();
+  unlink(resolvedPathToFile, (err) => {
+    if (err) {
+      process.emit('message', OPERATION_FAILED_MESSAGE);
+    }
+
+    process.emit('message', OK);
+  });
 }

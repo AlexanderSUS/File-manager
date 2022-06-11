@@ -1,26 +1,25 @@
 import { existsSync, createWriteStream } from 'fs';
-import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
+import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 
 export function createFile(fileName) {
-  const resolvedPathToFile = getAbsolutePath(fileName);
+  const resolvedPathToFile = getAbsolutePath(fileName ? fileName : '');
 
-  if (!existsSync(resolvedPathToFile)) {
-    const writeSrem = createWriteStream(resolvedPathToFile);
-
-    writeSrem.on('error', () => {
-      showOperationFailedMessage();
-      showCurrentDir();
-    })
-
-    writeSrem.close();
-
-    showCurrentDir();
+  if (!fileName || existsSync(resolvedPathToFile)) {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
 
     return;
   }
 
-  showOperationFailedMessage();
-  showCurrentDir();
+  const writeSrem = createWriteStream(resolvedPathToFile);
+
+  writeSrem.on('error', () => {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
+  })
+
+  writeSrem.on('close', () => {
+    process.emit('message', OK);
+  })
+
+  writeSrem.close();
 }

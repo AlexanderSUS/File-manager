@@ -55,3 +55,5 @@ export const COMPRESS_COMMAND = 'compress';
 export const DECOMPRESS_COMMAND = 'decompress';
 
 export const EXIT_COMMAND = '.exit';
+
+export const OK = 'ok';

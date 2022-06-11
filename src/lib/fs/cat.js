@@ -1,28 +1,25 @@
 import { createReadStream, existsSync} from 'fs';
-import { showCurrentDir } from "../notifications/showCurrentDir.js";
-import { showOperationFailedMessage } from "../notifications/showOperationFailedMessage.js";
+import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 import { getAbsolutePath } from "../utils/getAbsolutePath.js";
 
 export function cat(pathToFile) {
-  const resolvedPathToFile = getAbsolutePath(pathToFile);
+  const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');
 
-  if (existsSync(resolvedPathToFile)) {
-    const stream = createReadStream(pathToFile);
-
-    stream.pipe(process.stdout);
-
-    stream.on('error', () => {
-      showOperationFailedMessage();
-      showCurrentDir();
-    })
-
-    stream.on('end', () => {
-      showCurrentDir();
-    })
+  if (!pathToFile || !existsSync(resolvedPathToFile)) {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
 
     return;
   }
 
-  showOperationFailedMessage();
-  showCurrentDir();
+  const stream = createReadStream(resolvedPathToFile);
+
+  stream.pipe(process.stdout);
+
+  stream.on('error', () => {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
+  })
+
+  stream.on('end', () => {
+    process.emit('message', OK);
+  })
 }

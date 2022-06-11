@@ -1,27 +1,26 @@
 import { createHash } from 'crypto';
 import { existsSync, readFile } from 'fs';
-import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
+import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 
 export function calcHash(pathToFile) {
-  const resolvedPathToFile = getAbsolutePath(pathToFile);
+  const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');
 
-  if (existsSync(resolvedPathToFile)) {
-    readFile(resolvedPathToFile, 'utf-8', (err, data) => {
-      if (err) {
-        showOperationFailedMessage();
-        showCurrentDir();
-      }
-
-      const hash = createHash('sha256').update(data).digest('hex');
-      console.log(hash);
-      showCurrentDir();
-    });
+  if (!pathToFile ||  !existsSync(resolvedPathToFile)) {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
 
     return;
   }
 
-  showOperationFailedMessage();
-  showCurrentDir();
+  readFile(resolvedPathToFile, 'utf-8', (err, data) => {
+    if (err) {
+      process.emit('message', OPERATION_FAILED_MESSAGE);
+
+      return;
+    }
+
+    const hash = createHash('sha256').update(data).digest('hex');
+    console.log(hash);
+    process.emit('message', OK);
+  });
 }

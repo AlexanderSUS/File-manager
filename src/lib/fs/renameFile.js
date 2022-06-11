@@ -1,29 +1,22 @@
 import { existsSync, rename } from 'fs';
-import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
+import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 
 export function renameFile (fileName, newFileName) {
-  if (fileName && newFileName) {
-    const resolvedPathToFile = getAbsolutePath(fileName);
-    const resolvedPathToNewFileName = getAbsolutePath(newFileName);
+  const resolvedPathToFile = getAbsolutePath(fileName ? fileName : '');
+  const resolvedPathToNewFileName = getAbsolutePath(newFileName ? newFileName : '');
 
-    if (existsSync(resolvedPathToFile) && !existsSync(resolvedPathToNewFileName)) {
-      rename(resolvedPathToFile, newFileName, (err) => {
-        if (err) {
-          showOperationFailedMessage();
-          showCurrentDir();
+  if (!fileName || !newFileName || !existsSync(resolvedPathToFile) || existsSync(resolvedPathToNewFileName)) {
+    process.emit('message', OPERATION_FAILED_MESSAGE);
 
-          return;
-        }
-      });
-
-      showCurrentDir();
-
-      return;
-    }
+    return;
   }
 
-  showOperationFailedMessage();
-  showCurrentDir();
+  rename(resolvedPathToFile, newFileName, (err) => {
+    if (err) {
+      process.emit('message', OPERATION_FAILED_MESSAGE);
+    } else {
+      process.emit('message', OK);
+    }
+  });
 }
