@@ -1,6 +1,5 @@
 import { existsSync, mkdir, createReadStream, createWriteStream } from 'fs';
 import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showInvalidInputMessage } from '../notifications/showInvalidInputMessage.js';
 import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 import { sep, join } from 'path';
@@ -37,5 +36,6 @@ export function decompress(pathToFile, destination) {
     return; 
  }
 
-  showInvalidInputMessage();
+  showOperationFailedMessage();
+  showCurrentDir();
 } 

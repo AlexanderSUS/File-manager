@@ -1,6 +1,5 @@
 import { existsSync, unlink } from 'fs';
 import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showInvalidInputMessage } from '../notifications/showInvalidInputMessage.js';
 import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 
@@ -22,5 +21,6 @@ export function deleteFile(pathToFile) {
     return;
   }
 
-  showInvalidInputMessage();
+  showOperationFailedMessage();
+  showCurrentDir();
 }

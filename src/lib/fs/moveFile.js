@@ -58,5 +58,6 @@ export function moveFile(pathToFile, pathToNewDir) {
     return; 
   }
 
-  showInvalidInputMessage();
+  showOperationFailedMessage();
+  showCurrentDir();
 } 

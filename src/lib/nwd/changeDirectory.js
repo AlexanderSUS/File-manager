@@ -2,7 +2,6 @@ import { chdir } from 'process';
 import { getAbsolutePath } from '../utils/getAbsolutePath.js';
 import { isPathValid } from '../utils/isPathValid.js';
 import { showCurrentDir } from '../notifications/showCurrentDir.js';
-import { showInvalidInputMessage } from '../notifications/showInvalidInputMessage.js';
 import { showOperationFailedMessage } from '../notifications/showOperationFailedMessage.js';
 
 export const changeDirectory = (pathToDir) => {
@@ -13,7 +12,7 @@ export const changeDirectory = (pathToDir) => {
       showOperationFailedMessage()
     }
   } else {
-    showInvalidInputMessage();
+    showOperationFailedMessage()
   }
 
   showCurrentDir();
