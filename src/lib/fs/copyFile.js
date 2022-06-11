@@ -1,5 +1,5 @@
 import { existsSync, mkdir, createReadStream, createWriteStream } from 'fs';
-import { getAbsolutePath } from '../utils/getAbsolutePath.js';
+import { getAbsolutePath } from '../utils/index.js';
 import { sep, join } from 'path';
 import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 

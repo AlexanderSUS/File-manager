@@ -2,20 +2,13 @@ import { CD_COMMAND, EXIT_COMMAND, LS_COMMAND, SPACE,
 UP_COMMAND, OS_COMMAND, CAT_COMMAND, ADD_COMMAND,
 RN_COMMAND, CP_COMMAND, MV_COMMAND, RM_COMMAND, HASH_COMMAND,
 COMPRESS_COMMAND, DECOMPRESS_COMMAND, INVALID_INPUT_MESSAGE } from '../const.js';
-import { changeDirectory } from '../nwd/changeDirectory.js';
-import { goUp } from '../nwd/goUp.js';
-import { readDir } from '../nwd/readDir.js';
+import { changeDirectory, goUp, readDir } from '../nwd/index.js';
 import { cwd } from 'process';
 import { executeOsCommand } from '../os/executeOsCommand.js';
 import { cat } from '../fs/cat.js';
-import { createFile } from '../fs/createFile.js';
-import { renameFile } from '../fs/renameFile.js';
-import { copyFile } from '../fs/copyFile.js';
-import { moveFile } from '../fs/moveFile.js';
-import { deleteFile } from '../fs/deleteFile.js';
+import { createFile, renameFile, copyFile, moveFile, deleteFile } from '../fs/index.js';
 import { calcHash } from '../hash/calcHash.js';
-import { compress } from '../zip/compress.js';
-import { decompress } from '../zip/decompress.js';
+import { compress, decompress } from '../zip/index.js';
 
 export function parseCommand(line) {
   const lineArgs = line.split(SPACE);

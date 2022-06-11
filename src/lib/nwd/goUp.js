@@ -1,6 +1,6 @@
 import { cwd } from 'process';
 import { sep } from 'path';
-import { isHomeDir } from '../utils/isHomeDir.js';
+import { isHomeDir } from '../utils/index.js';
 import { changeDirectory } from './changeDirectory.js';
 
 export function goUp() {

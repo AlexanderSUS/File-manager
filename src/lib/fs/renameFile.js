@@ -1,6 +1,6 @@
 import { existsSync, rename } from 'fs';
 import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
-import { getAbsolutePath } from '../utils/getAbsolutePath.js';
+import { getAbsolutePath } from '../utils/index.js';
 
 export function renameFile (fileName, newFileName) {
   const resolvedPathToFile = getAbsolutePath(fileName ? fileName : '');

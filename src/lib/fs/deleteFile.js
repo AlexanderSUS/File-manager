@@ -1,6 +1,6 @@
 import { existsSync, unlink } from 'fs';
 import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
-import { getAbsolutePath } from '../utils/getAbsolutePath.js';
+import { getAbsolutePath } from '../utils/index.js';
 
 export function deleteFile(pathToFile) {
   const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');

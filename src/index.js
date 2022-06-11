@@ -1,11 +1,7 @@
 import readline from 'readline';
-import { checkScriptArguments } from './lib/utils/checkScriptArguments.js'
-import { parseCommand } from './lib/utils/parseCommand.js';
-import { showCurrentDir } from './lib/notifications/showCurrentDir.js';
-import { greetUser } from './lib/notifications/greetUser.js';
-import { goToHomeDirectory } from './lib/nwd/goToHomeDirectory.js';
-import { sayGoodbye } from './lib/notifications/sayGoodbye.js';
-import { showErrorMessage } from './lib/notifications/showErrorMessage.js';
+import { checkScriptArguments, parseCommand } from './lib/utils/index.js'
+import { showCurrentDir, greetUser,  sayGoodbye, showErrorMessage } from './lib/notifications/index.js';
+import { goToHomeDirectory } from './lib/nwd/index.js';
 import { OK } from './lib/const.js';
 
 const args = process.argv.slice(2);

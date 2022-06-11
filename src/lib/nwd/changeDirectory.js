@@ -1,6 +1,5 @@
 import { chdir } from 'process';
-import { getAbsolutePath } from '../utils/getAbsolutePath.js';
-import { isPathValid } from '../utils/isPathValid.js';
+import { getAbsolutePath, isPathValid } from '../utils/index.js';
 import { OPERATION_FAILED_MESSAGE } from '../const.js';
 
 export const changeDirectory = (pathToDir) => {
