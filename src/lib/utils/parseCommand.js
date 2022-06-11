@@ -35,24 +35,19 @@ export function parseCommand(line) {
       goUp();
       break;
     case CD_COMMAND:
-      const [destination] = args;
-      changeDirectory(destination);
+      changeDirectory(args[0]);
       break;
     case OS_COMMAND: 
-      const [argument] = args;
-      executeOsCommand(argument) 
+      executeOsCommand(args[0]) 
       break;
     case CAT_COMMAND:
-      const [sourceFile] = args;
-      cat(sourceFile);
+      cat(args[0]);
       break;
     case ADD_COMMAND:
-      const [newFileName] = args;
-      createFile(newFileName);
+      createFile(args[0]);
       break;
     case RN_COMMAND:
-      const [oldFileName, newName] = args;
-      renameFile(oldFileName, newName);
+      renameFile(args[0], args[1]);
       break;
     case CP_COMMAND:
       copyFile(args[0], args[1]);
