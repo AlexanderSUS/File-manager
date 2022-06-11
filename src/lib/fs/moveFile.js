@@ -1,4 +1,4 @@
-import { existsSync, mkdir, createReadStream, createWriteStream, unlink } from 'fs';
+import { existsSync, createReadStream, createWriteStream, unlink } from 'fs';
 import { getAbsolutePath } from '../utils/index.js';
 import { basename, join } from 'path';
 import { OPERATION_FAILED_MESSAGE } from '../const.js';
@@ -9,19 +9,10 @@ export function moveFile(pathToFile, pathToNewDir) {
   const fileName = basename(resolvedPathToFile);
   const resolvedNewFileName = join(resolvedPathToNewDir, fileName);
 
-  if (!pathToFile || !pathToNewDir || !existsSync(resolvedPathToFile) && existsSync(resolvedNewFileName)) {
+  if (!pathToFile || !pathToNewDir || !existsSync(resolvedPathToFile) || !existsSync(resolvedPathToCopy) || existsSync(resolvedNewFileName)) {
     process.emit('message', OPERATION_FAILED_MESSAGE);
 
     return; 
-  }
-
-  // TODO move out
-  if (!existsSync(resolvedPathToCopy)) {
-    mkdir(resolvedPathToCopy, { recursive: true}, (err) => {
-      if (err) {
-        process.emit('message', OPERATION_FAILED_MESSAGE);
-      }
-    });
   }
 
   const readSream = createReadStream(resolvedPathToFile);
