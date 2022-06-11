@@ -1,6 +1,7 @@
 import { CD_COMMAND, EXIT_COMMAND, LS_COMMAND, SPACE,
 UP_COMMAND, OS_COMMAND, CAT_COMMAND, ADD_COMMAND,
-RN_COMMAND, CP_COMMAND, MV_COMMAND, RM_COMMAND, HASH_COMMAND } from '../const.js';
+RN_COMMAND, CP_COMMAND, MV_COMMAND, RM_COMMAND, HASH_COMMAND,
+COMPRESS_COMMAND, DECOMPRESS_COMMAND } from '../const.js';
 import { changeDirectory } from '../nwd/changeDirectory.js';
 import { goUp } from '../nwd/goUp.js';
 import { readDir } from '../nwd/readDir.js';
@@ -14,6 +15,8 @@ import { copyFile } from '../fs/copyFile.js';
 import { moveFile } from '../fs/moveFile.js';
 import { deleteFile } from '../fs/deleteFile.js';
 import { calcHash } from '../hash/calcHash.js';
+import { compress } from '../zip/compress.js';
+import { decompress } from '../hash/decompress.js';
 
 export function parseCommand(line) {
   const lineArgs = line.split(SPACE);
@@ -62,6 +65,12 @@ export function parseCommand(line) {
       break;
     case HASH_COMMAND:
       calcHash(args[0]);
+      break;
+    case COMPRESS_COMMAND:
+      compress(args[0], args[1]);
+      break;
+    case DECOMPRESS_COMMAND:
+      decompress(args[0], args[1]);
       break;
     default:
       showInvalidInputMessage();
