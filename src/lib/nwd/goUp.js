@@ -1,12 +1,18 @@
 import { cwd } from 'process';
 import { sep } from 'path';
-import { isHomeDir } from '../utils/index.js';
-import { changeDirectory } from './changeDirectory.js';
+import { changeDirectory } from './index.js';
+import { isCurrentDirRoot } from '../utils/index.js';
+import { OK } from '../const.js';
 
 export function goUp() {
-  if (!isHomeDir()) {
-    const splitedPath = cwd().split(sep);
-    splitedPath.pop();
-    changeDirectory(splitedPath.join(sep));
+  if (isCurrentDirRoot()) {
+    process.emit('message', OK);
+
+    return;
   }
+
+  const splitedPath = cwd().split(sep);
+
+  splitedPath.pop();
+  changeDirectory(splitedPath.join(sep));
 }
