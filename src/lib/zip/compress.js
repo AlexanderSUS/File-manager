@@ -1,13 +1,13 @@
 import { existsSync, mkdir, createReadStream, createWriteStream } from 'fs';
 import { getAbsolutePath } from '../utils/index.js';
-import { sep, join } from 'path';
+import { basename, join } from 'path';
 import { createBrotliCompress } from 'zlib';
 import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 
 export function compress(pathToFile, destination) {
   const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');
   const resolvedDestination = getAbsolutePath(destination ? destination : '');
-  const fileName = resolvedPathToFile.split(sep).pop();
+  const fileName = basename(resolvedPathToFile);
   const resolvedNewFileName = join(resolvedDestination, `${fileName}.br`);
 
   if (!pathToFile || !destination || !existsSync(resolvedPathToFile) || existsSync(resolvedNewFileName)) {

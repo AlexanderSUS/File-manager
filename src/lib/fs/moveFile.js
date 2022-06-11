@@ -1,12 +1,12 @@
 import { existsSync, mkdir, createReadStream, createWriteStream, unlink } from 'fs';
 import { getAbsolutePath } from '../utils/index.js';
-import { sep, join } from 'path';
+import { basename, join } from 'path';
 import { OPERATION_FAILED_MESSAGE } from '../const.js';
 
 export function moveFile(pathToFile, pathToNewDir) {
   const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');
   const resolvedPathToNewDir = getAbsolutePath(pathToNewDir ? pathToNewDir : '');
-  const fileName = resolvedPathToFile.split(sep).pop();
+  const fileName = basename(resolvedPathToFile);
   const resolvedNewFileName = join(resolvedPathToNewDir, fileName);
 
   if (!pathToFile || !pathToNewDir || !existsSync(resolvedPathToFile) && existsSync(resolvedNewFileName)) {

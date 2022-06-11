@@ -1,12 +1,12 @@
 import { existsSync, mkdir, createReadStream, createWriteStream } from 'fs';
 import { getAbsolutePath } from '../utils/index.js';
-import { sep, join } from 'path';
+import { basename, join } from 'path';
 import { OK, OPERATION_FAILED_MESSAGE } from '../const.js';
 
 export function copyFile(pathToFile, pathToCopy) {
     const resolvedPathToFile = getAbsolutePath(pathToFile ? pathToFile : '');
     const resolvedPathToCopy = getAbsolutePath(pathToCopy ? pathToCopy : '');
-    const fileName = resolvedPathToFile.split(sep).pop();
+    const fileName = basename(resolvedPathToFile);
     const resolvedCopyFileName = join(resolvedPathToCopy, fileName);
 
   if (!pathToFile || !pathToCopy || !existsSync(resolvedPathToFile) || existsSync(resolvedCopyFileName)) {
