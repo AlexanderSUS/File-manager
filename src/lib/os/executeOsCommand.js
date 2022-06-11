@@ -11,7 +11,8 @@ export const executeOsCommand = (argument) => {
       console.log(JSON.stringify(EOL));
       break;
     case CPUS_ARG:
-      cpus().forEach(c => console.log(`${CORE}: ${c.model}, ${SPEED}: ${c.speed}`));
+      console.log('Total cores: ', cpus().length);
+      console.log(cpus().map(c => ({ model: c.model, speed: c.speed / 1000})));
       break;
     case HOMEDIR_ARG:
       console.log(homedir());
