@@ -3,9 +3,6 @@ import { EOL_ARG, CPUS_ARG, HOMEDIR_ARG, USERNAME_ARG, ARCH_ARG,
 import { cpus, EOL, homedir, userInfo, arch } from 'os';
 
 export const executeOsCommand = (argument) => {
-  const CORE = 'Core';
-  const SPEED = 'speed';
-
   switch(argument) {
     case EOL_ARG:
       console.log(JSON.stringify(EOL));
@@ -25,7 +22,9 @@ export const executeOsCommand = (argument) => {
       break;
     default:
       process.emit('message', OPERATION_FAILED_MESSAGE);
+
       return;
   }
+
   process.emit('message', OK);
 }

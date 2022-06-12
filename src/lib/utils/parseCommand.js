@@ -14,9 +14,6 @@ export function parseCommand(line) {
   const lineArgs = line.split(SPACE);
   const [command, ...args ] =  lineArgs;
 
-  console.log(`\x1b[34m command: ${command} \x1b[0m`);
-  console.log(`\x1b[34m args: ${args} \x1b[0m`);
-
   switch(command) {
     case EXIT_COMMAND: 
       process.exit();
