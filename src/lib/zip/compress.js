@@ -10,7 +10,13 @@ export function compress(pathToFile, destination) {
   const fileName = basename(resolvedPathToFile);
   const resolvedNewFileName = join(resolvedDestination, `${fileName}.br`);
 
-  if (!pathToFile || !destination || !existsSync(resolvedPathToFile) || !existsSync(resolvedPathToCopy) || existsSync(resolvedNewFileName)) {
+  if (
+    !pathToFile 
+    || !destination 
+    || !existsSync(resolvedPathToFile) 
+    || !existsSync(resolvedDestination) 
+    || existsSync(resolvedNewFileName)
+    ) {
     process.emit('message', OPERATION_FAILED_MESSAGE);
 
     return; 

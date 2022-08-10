@@ -10,7 +10,13 @@ export function decompress(pathToFile, destination) {
   const fileName = basename(resolvedPathToFile);
   const resolvedNewFileName = join(resolvedDestination, fileName.slice(0, -3));
 
-  if (!pathToFile || !destination || !existsSync(resolvedPathToFile) || !fileName.endsWith('.br') || !existsSync(resolvedPathToCopy) || existsSync(resolvedNewFileName)) {
+  if (!pathToFile 
+    || !destination 
+    || !existsSync(resolvedPathToFile) 
+    || !fileName.endsWith('.br') 
+    || !existsSync(resolvedDestination) 
+    || existsSync(resolvedNewFileName)
+    ) {
     process.emit('message', OPERATION_FAILED_MESSAGE);
 
     return; 
